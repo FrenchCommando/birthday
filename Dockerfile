@@ -16,6 +16,17 @@ RUN flake8 --ignore=E121,E501,F401,W605 .
 
 WORKDIR /app
 
+RUN apt-get update && \
+    apt-get install --reinstall -y build-essential && \
+    apt-get install -y --no-install-recommends \
+        gcc gfortran \
+        libffi-dev \
+        libjpeg-dev \
+        musl-dev \
+        netcat \
+        python3 python3-dev \
+        zlib1g-dev
+
 COPY requirements.txt ./
 
 RUN pip install --no-cache-dir -r requirements.txt
