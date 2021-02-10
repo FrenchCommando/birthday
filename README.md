@@ -51,6 +51,12 @@ Personnaly I use `nginx` to manage the domains and load-balancing. (I guess that
 
 Pulled from there
 `https://github.com/FrenchCommando/uscis-status`
+`https://github.com/RendijsSmukulis/docker-aiohttp-gunicorn`
+
+```cmd
+docker build -t birthdaybuild .
+docker run -p 1339:1339 birthdaybuild
+```
 
 Because I don't want to setup a venv in python in my server - I'll just `docker up --build`.
 
