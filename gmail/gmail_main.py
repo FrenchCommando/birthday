@@ -1,4 +1,4 @@
-from gmail_service import load_creds
+from gmail.gmail_service import load_creds
 from gmail.gmail_functions import listen_and_deliver
 
 
