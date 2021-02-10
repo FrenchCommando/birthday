@@ -51,4 +51,9 @@ COPY . $APP_HOME
 RUN chown -R app:app $APP_HOME
 USER app
 
-CMD ["gunicorn host_page:init_app --bind 0.0.0.0:5000 --worker-class aiohttp.worker.GunicornWebWorker --timeout 300"]
+EXPOSE 1339
+CMD [
+        "gunicorn", "host_page:init_app",
+        "--bind 0.0.0.0:1339", "--worker-class",
+        "aiohttp.worker.GunicornWebWorker", "--timeout", "300"
+]
