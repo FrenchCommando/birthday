@@ -33,7 +33,7 @@ WORKDIR $APP_HOME
 
 # install dependencies
 RUN apt-get update && \
-    apt-get install python3 python3-dev
+    apt-get install -y python3 python3-dev
 
 COPY ./requirements.txt $APP_HOME
 RUN pip install --upgrade pip setuptools
