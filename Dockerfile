@@ -26,14 +26,21 @@ RUN addgroup --system app && adduser --system --group app
 
 # create the appropriate directories
 ENV HOME=/home/app
-ENV APP_HOME=/home/app/uscis_service
-RUN mkdir $APP_HOME
+ENV APP_HOME=/home/app/birthday
 WORKDIR $APP_HOME
 
 
 # install dependencies
 RUN apt-get update && \
-    apt-get install -y python3 python3-dev
+    apt-get install --reinstall -y build-essential && \
+    apt-get install -y --no-install-recommends \
+        gcc gfortran \
+        libffi-dev \
+        libjpeg-dev \
+        musl-dev \
+        netcat \
+        python3 python3-dev \
+        zlib1g-dev
 
 COPY ./requirements.txt $APP_HOME
 RUN pip install --upgrade pip setuptools

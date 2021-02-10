@@ -47,6 +47,13 @@ web.run_app(init_app(), port="8888")
 
 Personnaly I use `nginx` to manage the domains and load-balancing. (I guess that's what most people do)
 
+## Docker
+
+Pulled from there
+`https://github.com/FrenchCommando/uscis-status`
+
+Because I don't want to setup a venv in python in my server - I'll just `docker up --build`.
+
 # Acknowledgement
 
 - this is a nice cheatsheet: `https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet`
