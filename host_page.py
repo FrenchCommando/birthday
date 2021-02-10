@@ -42,4 +42,5 @@ async def init_app() -> web.Application:
     return app
 
 
-web.run_app(init_app(), port="8888")
+if __name__ == '__main__':
+    web.run_app(init_app(), port="8888")

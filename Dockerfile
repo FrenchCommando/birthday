@@ -1,0 +1,49 @@
+###########
+# BUILDER #
+###########
+
+# pull official base image
+FROM python:3.8.6-slim-buster as builder
+
+# set work directory
+WORKDIR /usr/src/app
+
+# lint
+RUN pip install --upgrade pip setuptools
+RUN pip install flake8
+COPY . $WORKDIR
+RUN flake8 --ignore=E121,E501,F401,W605 .
+
+
+# pull official base image
+FROM python:3.8.6-slim-buster
+
+# create directory for the app user
+RUN mkdir -p /home/app
+
+# create the app user
+RUN addgroup --system app && adduser --system --group app
+
+# create the appropriate directories
+ENV HOME=/home/app
+ENV APP_HOME=/home/app/uscis_service
+RUN mkdir $APP_HOME
+WORKDIR $APP_HOME
+
+
+# install dependencies
+RUN apt-get update && \
+    apt-get install --reinstall -y build-essential && \
+    apt-get install -y --no-install-recommends \
+        python3 python3-dev
+
+COPY ./requirements.txt $APP_HOME
+RUN pip install --upgrade pip setuptools
+RUN pip install -r requirements.txt
+
+COPY . $APP_HOME
+
+RUN chown -R app:app $APP_HOME
+USER app
+
+CMD ["gunicorn host_page:init_app --bind 0.0.0.0:5000 --worker-class aiohttp.worker.GunicornWebWorker --timeout 300"]
