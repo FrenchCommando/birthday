@@ -53,9 +53,4 @@ USER app
 
 EXPOSE 1339
 
-ENTRYPOINT [
-        'gunicorn', 'host_page:init_app',
-        '--bind', '0.0.0.0:1339',
-        '--worker-class', 'aiohttp.worker.GunicornWebWorker',
-        '--timeout', '300'
-]
+ENTRYPOINT [ 'gunicorn', 'host_page:init_app', '--bind', '0.0.0.0:1339', '--worker-class', 'aiohttp.worker.GunicornWebWorker', '--timeout', '300' ]
